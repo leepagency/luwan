@@ -23,9 +23,13 @@ jobs:
         run: npm install
 
       - name: Build Theme
-        run: npm run build || true
+        run: npm run prod
 
-      - name: Upload to Twilight
-        uses: SallaApp/twilightci-action@v2
+      - name: Zip build folder
+        run: zip -r theme.zip public
+
+      - name: Upload Theme to TwilightCI
+        uses: SallaApp/twilight-ci@v1
         with:
           token: ${{ secrets.TWILIGHT_TOKEN }}
+          file: theme.zip
